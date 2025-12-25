@@ -13,6 +13,6 @@ Schedule::command('products:check-low-stock')
     ->withoutOverlapping();
 
 Schedule::command('sales:generate-daily-report')
-    ->dailyAt('19:00')
+    ->dailyAt('23:00')
     ->withoutOverlapping();
 
