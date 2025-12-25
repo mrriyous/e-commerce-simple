@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class CartController extends Controller
@@ -71,6 +72,10 @@ class CartController extends Controller
         $user = Auth::user();
         
         if (!$user) {
+            // Store the intended URL (product page) in session
+            $product = Product::findOrFail($request->product_id);
+            $intendedUrl = route('products.show', $product->slug);
+            Session::put('intended', $intendedUrl);
             return redirect()->route('login');
         }
 

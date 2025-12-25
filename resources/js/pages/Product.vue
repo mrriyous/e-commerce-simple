@@ -94,7 +94,9 @@ const hasLowStock = computed(() => props.product.stock_quantity > 0 && props.pro
 
 const handleAddToCart = async () => {
     if (!page.props.auth?.user) {
-        router.visit('/login');
+        // Redirect to login with the current product page as intended URL
+        const currentUrl = window.location.pathname;
+        router.visit(`/login?intended=${encodeURIComponent(currentUrl)}`);
         return;
     }
 
